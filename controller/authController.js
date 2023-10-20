@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
     });
 
     if (user) {
-      next(new ApiError("User email already taken", 400));
+      return next(new ApiError("User email already taken", 400));
     }
 
     // minimum password length
@@ -35,11 +35,22 @@ const register = async (req, res, next) => {
     const hashedConfirmPassword = bcrypt.hashSync(confirmPassword, saltRounds);
 
 
-    const newUser = await User.create({
-      name,
-      address,
-      age,
-    });
+    if (req.user) {
+      if (req.user.role == "super_admin") {
+        newUser = await User.create({
+          name,
+          address,
+          age,
+          role: "admin",
+        });
+      }
+    } else {
+      newUser = await User.create({
+        name,
+        address,
+        age,
+      });
+    }
 
     const test = await Auth.create({
       email,

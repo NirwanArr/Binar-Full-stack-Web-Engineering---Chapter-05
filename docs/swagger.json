@@ -1,0 +1,76 @@
+{
+    "openapi" : "3.0.0",
+    "info" : {
+        "title": "Challenge FSW 2 CH5",
+        "description": "ini API Challenge",
+        "version": "1.0.0"
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "ini API Users"
+        },
+        {
+            "name": "Cars",
+            "description": "ini API Cars"
+        }
+    ],
+    "servers": [
+        {
+            "url": "http://localhost:3000/api/v1"
+        }
+    ],
+    "paths" : {
+        "/auth/member/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Return hasil hit API",
+                "description": "ini API untuk login member",
+                "requestBody": {
+                    "description": "ini request body untuk login",
+                    "content": {
+                        "aplication/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "email": {
+                                        "type": "string",
+                                        "example": "imam@mail.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "succes login",
+                        "content": {
+                            "aplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Succes"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "token": {
+                                                    "type":"string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

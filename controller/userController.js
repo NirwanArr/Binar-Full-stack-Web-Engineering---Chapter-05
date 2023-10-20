@@ -1,5 +1,4 @@
 const { User } = require("../models");
-const imagekit = require("../lib/imagekit");
 const ApiError = require("../utils/apiError");
 
 const findUsers = async (req, res, next) => {
