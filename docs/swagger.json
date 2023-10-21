@@ -190,6 +190,11 @@
       "/auth/admin/register": {
         "post": {
           "tags": ["Admin"],
+          "security": [
+            {
+              "bearerToken": []
+            }
+          ],
           "summary": "Admin Register",
           "description": "ini API untuk register Admin",
           "requestBody": {
