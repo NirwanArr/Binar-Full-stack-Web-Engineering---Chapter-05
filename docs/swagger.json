@@ -223,10 +223,6 @@
                       "type": "integer",
                       "example": 1
                     },
-                    "type": {
-                      "type": "string",
-                      "example": "small"
-                    },
                     "image": {
                       "type": "string",
                       "format": "binary"
@@ -382,10 +378,6 @@
                       "price": {
                         "type": "integer",
                         "example": 10000
-                      },
-                      "type": {
-                        "type": "string",
-                        "example": "Small"
                       }
                     }
                   }
@@ -421,6 +413,11 @@
         },
         "patch": {
             "tags": ["Cars"],
+            "security": [
+              {
+                "bearerToken": []
+              }
+            ],
             "summary": "Update Car by ID",
             "description": "API to update a specific car by its ID",
             "parameters": [
@@ -449,11 +446,19 @@
                         "type": "string"
                       },
                       "price": {
-                        "type": "integer"
+                        "type": "integer",
+                        "example": 1000000
                       },
-                      "role": {
-                        "type": "string"
+                      "image": {
+                        "type": "string",
+                        "format": "uri"
                       }
+                    },
+                    "example": {
+                      "name": "Mazda 3",
+                      "category": "small",
+                      "price": 1000000,
+                      "image": "https://example.com/car.jpg"
                     }
                   }
                 }
@@ -467,20 +472,83 @@
                     "schema": {
                       "type": "object",
                       "properties": {
-                        "id": {
-                          "type": "integer"
+                        "status": {
+                          "type": "string",
+                          "example": "Success"
                         },
-                        "name": {
-                          "type": "string"
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Car updated successfully"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Car not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Failed"
                         },
-                        "category": {
-                          "type": "string"
-                        },
-                        "price": {
-                          "type": "integer"
-                        },
-                        "type": {
-                          "type": "string"
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Car not found"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+        "delete": {
+            "tags": ["Cars"],
+            "security": [
+                {
+                  "bearerToken": []
+                }
+            ],
+            "summary": "Delete Car by ID",
+            "description": "API to delete a specific car by its ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "description": "ID of the car to delete"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success: Car deleted by ID",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Car deleted successfully"
                         }
                       }
                     }
@@ -514,7 +582,7 @@
               }
             }
           }
-      }      
+      }
     },
     "components": {
       "securitySchemes": {
