@@ -6,7 +6,7 @@ const checkRole = require("../middlewares/checkRole");
 
 router.post("/superadmin/login", Auth.login);
 
-router.post("/admin/register", authenticate, checkRole("super_admin"), Auth.register);
+router.post("/admin/register", authenticate, checkRole(["super_admin"]), Auth.register);
 router.post("/admin/login", Auth.login);
 
 router.post("/member/register", Auth.register);

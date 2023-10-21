@@ -36,15 +36,13 @@ const findUserById = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
-  const { name, age, role, address, shopId } = req.body;
+  const { name, age, address } = req.body;
   try {
-    await User.update(
+    const user = User.update(
       {
         name,
         age,
-        role,
         address,
-        shopId,
       },
       {
         where: {
@@ -71,7 +69,7 @@ const deleteUser = async (req, res, next) => {
     });
 
     if (!user) {
-      next(new ApiError("User id tersebut gak ada", 404));
+     next(new ApiError("User id tersebut gak ada", 404));
     }
 
     await User.destroy({

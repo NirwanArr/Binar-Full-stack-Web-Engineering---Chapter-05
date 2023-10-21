@@ -6,7 +6,7 @@ const checkRole = (role, role2) => {
             if (req.user.role == role || req.user.role == role2) {
                 next();
             } else {
-                next(new ApiError(`Kamu bukan admin, tidak memiliki akses`, 401));
+                next(new ApiError(`Kamu tidak memiliki akses`, 401));
             }
         } catch (err) {
             next(new ApiError(err.message, 500));

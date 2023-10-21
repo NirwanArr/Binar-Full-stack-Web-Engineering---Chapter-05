@@ -3,17 +3,13 @@ const { User } = require("../models");
 
 const checkId = async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const findUser = await User.findByPk(req.params.id);
 
-    if (!user) {
+    if (!findUser) {
       return next(new ApiError(`user tidak ditemukan`, 404));
     }
-
-    if (user.id === req.user.id || req.user.role == "super_admin") {
-      next();
-    } else {
-      return next(new ApiError(`Tidak diizinkan, kamu bukan pemilik akun ini`, 403));
-    }
+    next();
+    
   } catch (err) {
     next(new ApiError(err.message, 500));
   }
