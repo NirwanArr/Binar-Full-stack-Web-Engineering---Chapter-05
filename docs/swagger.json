@@ -1,76 +1,527 @@
 {
-    "openapi" : "3.0.0",
-    "info" : {
-        "title": "Challenge FSW 2 CH5",
-        "description": "ini API Challenge",
-        "version": "1.0.0"
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Challenge FSW 2 Chapter 5",
+      "description": "ini challenge kami",
+      "version": "1.0.0"
     },
     "tags": [
-        {
-            "name": "Users",
-            "description": "ini API Users"
-        },
-        {
-            "name": "Cars",
-            "description": "ini API Cars"
-        }
+      {
+        "name": "Users",
+        "description": "ini API untuk USERS resources"
+      },
+      {
+        "name": "Cars",
+        "description": "ini API untuk CARS resources"
+      }
     ],
     "servers": [
-        {
-            "url": "http://localhost:3000/api/v1"
-        }
+      {
+        "url": "http://localhost:9000/api/v1"
+      }
     ],
-    "paths" : {
-        "/auth/member/login": {
-            "post": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Return hasil hit API",
-                "description": "ini API untuk login member",
-                "requestBody": {
-                    "description": "ini request body untuk login",
-                    "content": {
-                        "aplication/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties":{
-                                    "email": {
-                                        "type": "string",
-                                        "example": "imam@mail.com"
-                                    }
-                                }
-                            }
-                        }
+    "paths": {
+      "/auth/member/login": {
+        "post": {
+          "tags": ["Users"],
+          "summary": "Return hasil hit api login utk member",
+          "description": "ini API utk login member",
+          "requestBody": {
+            "description": "ini request body utk sukses login member",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "imam@mail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "imamganteng"
                     }
-                },
-                "responses": {
-                    "200": {
-                        "description": "succes login",
-                        "content": {
-                            "aplication/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Succes"
-                                        },
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "token": {
-                                                    "type":"string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                  }
                 }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Sukses Member login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string",
+                            "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Gagal Member login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "wrong password atau user gak ada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/member/register": {
+        "post": {
+          "tags": ["Users"],
+          "summary": "Return hasil hit api register",
+          "description": "ini API utk register",
+          "requestBody": {
+            "description": "ini request body utk sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "imam"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "imamganteng"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "imam@mail.com"
+                    },
+                    "confirmPassword": {
+                      "type": "string",
+                      "example": "imamganteng"
+                    },
+                    "age": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "bandung"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Sukses register",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string",
+                            "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Gagal Member login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "wrong password atau user gak ada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/cars": {
+        "post": {
+          "tags": ["Cars"],
+          "security": [
+            {
+              "bearerToken": []
+            }
+          ],
+          "summary": "Return hasil hit api cars",
+          "description": "ini API utk create car",
+          "requestBody": {
+            "description": "ini request body utk sukses car",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": "string",
+                      "example": "small"
+                    },
+                    "price": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "small"
+                    },
+                    "image": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Sukses create car",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string",
+                            "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Gagal Member login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "wrong password atau user gak ada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+            "tags": ["Cars"],
+            "security": [
+              {
+                "bearerToken": []
+              }
+            ],
+            "summary": "Get All Cars",
+            "description": "API to retrieve all cars",
+            "responses": {
+              "200": {
+                "description": "Success: All cars retrieved",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Car Name"
+                          },
+                          "category": {
+                            "type": "string",
+                            "example": "Small"
+                          },
+                          "price": {
+                            "type": "integer",
+                            "example": 10000
+                          },
+                          "type": {
+                            "type": "string",
+                            "example": "Small"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
         }
+      },
+      "/cars/{id}": {
+        "get": {
+          "tags": ["Cars"],
+          "security": [
+            {
+              "bearerToken": []
+            }
+          ],
+          "summary": "Find Car by ID",
+          "description": "API to retrieve a specific car by its ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "description": "ID of the car to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success: Car retrieved by ID",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Car Name"
+                      },
+                      "category": {
+                        "type": "string",
+                        "example": "Small"
+                      },
+                      "price": {
+                        "type": "integer",
+                        "example": 10000
+                      },
+                      "type": {
+                        "type": "string",
+                        "example": "Small"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Car not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "Car not found"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+            "tags": ["Cars"],
+            "summary": "Update Car by ID",
+            "description": "API to update a specific car by its ID",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "description": "ID of the car to update"
+              }
+            ],
+            "requestBody": {
+              "description": "Updated car data in JSON format",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "price": {
+                        "type": "integer"
+                      },
+                      "role": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Success: Car updated by ID",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Car not found",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "example": "Failed"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "message": {
+                              "type": "string",
+                              "example": "Car not found"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }      
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerToken": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
     }
-}
+  }

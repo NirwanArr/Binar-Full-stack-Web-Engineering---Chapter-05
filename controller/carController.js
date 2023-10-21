@@ -5,6 +5,7 @@ const { Op } = require("sequelize");
 
 const createCar = async (req, res, next) => {
   const { name, price, category } = req.body;
+  // const { username } = req.query;
   const file = req.file;
   let img;
 
@@ -27,13 +28,17 @@ const createCar = async (req, res, next) => {
       price,
       category,
       image: img,
-      userId: req.user.id,
+      createByUserId: req.user.id,
+      updateByUserId: req.user.id,
     });
+
+    const createdByUser = await User.findByPk(req.user.id);
 
     res.status(200).json({
       status: "Success",
       data: {
-        newCar,
+        ...newCar.toJSON(),
+        creator: createdByUser.name,
       },
     });
   } catch (err) {
@@ -54,7 +59,15 @@ const findCars = async (req, res, next) => {
       include: [
         {
           model: User,
-          where: includeUserCondition,
+          as: 'createBy',
+          attributes: ['name'],
+          required: false,
+        },
+        {
+          model: User,
+          as: 'updateBy',
+          attributes: ['name'],
+          required: false,
         },
       ],
       where: condition,
@@ -107,6 +120,7 @@ const UpdateCar = async (req, res, next) => {
         name,
         price,
         category,
+        updateByUserId: req.user.id,
       },
       {
         where: {
@@ -149,6 +163,18 @@ const deleteCar = async (req, res, next) => {
     if (!car) {
       next(new ApiError("Car id tersebut gak ada", 404));
     }
+
+    await Car.update(
+      {
+        deletedBy: req.user.id,
+      },
+      
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
 
     await Car.destroy({
       where: {

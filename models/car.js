@@ -13,27 +13,42 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Car.belongsTo(models.User, {
         foreignKey: {
-          name: "userId",
+          name: "createByUserId",
         },
+        as: "createBy",
+      });
+
+      Car.belongsTo(models.User, {
+        foreignKey: {
+          name: "updateByUserId",
+        },
+        as: "updateBy",
+      });
+
+      Car.belongsTo(models.User, {
+        foreignKey: {
+          name: "deleteByUserId",
+        },
+        as: "deleteBy",
       });
     }
   }
   Car.init({
     name: DataTypes.STRING,
     price: DataTypes.FLOAT,
-    category: DataTypes.STRING,
+    category: DataTypes.ENUM(["small", "medium", "large"]),
     image: {
       type: DataTypes.TEXT,
-        defaultValue:
-          "https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
+      defaultValue:
+        "https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
     },
-    userId: {
-      type: DataTypes.INTEGER,
-    },
-  }, 
-  {
-    sequelize,
-    modelName: 'Car',
-  });
+    createByUserId: DataTypes.INTEGER,
+    updateByUserId: DataTypes.INTEGER,
+    updateByUserId: DataTypes.INTEGER,
+  },
+    {
+      sequelize,
+      modelName: 'Car',
+    });
   return Car;
 };

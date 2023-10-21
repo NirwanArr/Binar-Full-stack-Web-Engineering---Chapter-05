@@ -16,14 +16,20 @@ module.exports = {
         type: Sequelize.FLOAT
       },
       category: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM(["small", "medium", "large"]),
+        allowNull: false,
       },
       image: {
         type: Sequelize.STRING
       },
-      userId: {
+      createByUserId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+      },
+      updateByUserId: {
+        type: Sequelize.INTEGER,
+      },
+      deleteByUserId: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
