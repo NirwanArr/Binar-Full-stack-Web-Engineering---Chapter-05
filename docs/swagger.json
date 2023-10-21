@@ -7,12 +7,20 @@
     },
     "tags": [
       {
+        "name": "Super Admin",
+        "description": "ini API untuk Super Admin resources"
+      },
+      {
+        "name": "Admin",
+        "description": "ini API untuk Admin resources"
+      },
+      {
         "name": "Users",
-        "description": "ini API untuk USERS resources"
+        "description": "ini API untuk Member resources"
       },
       {
         "name": "Cars",
-        "description": "ini API untuk CARS resources"
+        "description": "ini API untuk Cars resources"
       }
     ],
     "servers": [
@@ -21,6 +29,366 @@
       }
     ],
     "paths": {
+      "/auth/superadmin/login": {
+        "post": {
+          "tags": ["Super Admin"],
+          "summary": "Login Super Admin API",
+          "description": "ini API untuk login super admin",
+          "requestBody": {
+            "description": "ini request body untuk sukses login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "imam@mail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "imamganteng"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Sukses login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string",
+                            "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Gagal login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "wrong password atau user gak ada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/admin/login": {
+        "post": {
+          "tags": ["Admin"],
+          "summary": "Login Admin API",
+          "description": "ini API utk login Admin",
+          "requestBody": {
+            "description": "ini request body untuk sukses login Admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "imam@mail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "imamganteng"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Sukses Admin login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string",
+                            "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Gagal login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "wrong password atau user gak ada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/admin/register": {
+        "post": {
+          "tags": ["Admin"],
+          "summary": "Admin Register",
+          "description": "ini API untuk register Admin",
+          "requestBody": {
+            "description": "ini request body untuk sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "imam"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "imamganteng"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "imam@mail.com"
+                    },
+                    "confirmPassword": {
+                      "type": "string",
+                      "example": "imamganteng"
+                    },
+                    "age": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "bandung"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Sukses register",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string",
+                            "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Gagal login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Failed"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "wrong password atau user gak ada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/me": {
+        "get": {
+          "tags": ["Users"],
+          "security": [
+            {
+              "bearerToken": []
+            }
+          ],
+          "summary": "Get user's profile",
+          "responses": {
+            "200": {
+              "description": "Success: User profile retrieved",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Success"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 19
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "Admin3"
+                              },
+                              "age": {
+                                "type": "integer",
+                                "example": 23
+                              },
+                              "role": {
+                                "type": "string",
+                                "example": "admin"
+                              },
+                              "address": {
+                                "type": "string",
+                                "example": "tangerang"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2023-10-20T16:10:41.263Z"
+                              },
+                              "updatedAt": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2023-10-20T16:10:41.263Z"
+                              },
+                              "Auth": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "example": 18
+                                  },
+                                  "email": {
+                                    "type": "string",
+                                    "example": "admin3@gmail.com"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "example": "Unauthorized"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "Unauthorized"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        },
       "/auth/member/login": {
         "post": {
           "tags": ["Users"],
@@ -433,9 +801,9 @@
               }
             ],
             "requestBody": {
-              "description": "Updated car data in JSON format",
+              "description": "Updated car data in multipart/form-data format",
               "content": {
-                "application/json": {
+                "multipart/form-data": {
                   "schema": {
                     "type": "object",
                     "properties": {
@@ -447,18 +815,12 @@
                       },
                       "price": {
                         "type": "integer",
-                        "example": 1000000
+                        "format": "int64"
                       },
                       "image": {
                         "type": "string",
-                        "format": "uri"
+                        "format": "binary"
                       }
-                    },
-                    "example": {
-                      "name": "Mazda 3",
-                      "category": "small",
-                      "price": 1000000,
-                      "image": "https://example.com/car.jpg"
                     }
                   }
                 }
@@ -516,7 +878,7 @@
                 }
               }
             }
-          },
+          },          
         "delete": {
             "tags": ["Cars"],
             "security": [
@@ -583,6 +945,7 @@
             }
           }
       }
+
     },
     "components": {
       "securitySchemes": {

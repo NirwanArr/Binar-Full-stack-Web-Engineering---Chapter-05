@@ -112,39 +112,54 @@ const findCarById = async (req, res, next) => {
   }
 };
 
-const UpdateCar = async (req, res, next) => {
+const updateCar = async (req, res, next) => {
   const { name, price, category } = req.body;
+  const file = req.file;
+
   try {
-    const car = await Car.update(
-      {
-        name,
-        price,
-        category,
-        updateByUserId: req.user.id,
-      },
+    let img;
+
+    if (file) {
+      // dapatkan extension file nya
+      const split = file.originalname.split(".");
+      const extension = split[split.length - 1];
+
+      // upload file ke imagekit
+      const uploadedImage = await imagekit.upload({
+        file: file.buffer,
+        fileName: `IMG-${Date.now()}.${extension}`,
+      });
+      img = uploadedImage.url;
+    }
+
+    const [updatedRowCount, [updatedCar]] = await Car.update({
+      name,
+      price,
+      category,
+      image: img,
+      updateByUserId: req.user.id,
+    },
       {
         where: {
           id: req.params.id,
         },
+        returning: true,
       }
     );
 
-    const carDataUpdated = await Car.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (!carDataUpdated) {
-      return next(new ApiError("Car id tersebut tidak ada", 404));
+    if (updatedRowCount === 0) {
+      return next(new ApiError("Car tidak ditemukan", 404));
     }
+
+    const updateByUser = await User.findByPk(req.user.id);
 
     res.status(200).json({
       status: "Success",
       data: {
-        carDataUpdated,
+        ...updatedCar.toJSON(),
+        updatedBy: updateByUser ? updateByUser.name : "Unknown User",
       },
-      message: "Success update data",
+      message: "Data berhasil diperbarui",
     });
   } catch (err) {
     next(new ApiError(err.message, 400));
@@ -168,7 +183,7 @@ const deleteCar = async (req, res, next) => {
       {
         deletedBy: req.user.id,
       },
-      
+
       {
         where: {
           id: req.params.id,
@@ -195,6 +210,6 @@ module.exports = {
   createCar,
   findCars,
   findCarById,
-  UpdateCar,
+  updateCar,
   deleteCar,
 };

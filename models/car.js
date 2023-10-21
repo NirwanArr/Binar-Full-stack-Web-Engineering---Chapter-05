@@ -44,10 +44,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     createByUserId: DataTypes.INTEGER,
     updateByUserId: DataTypes.INTEGER,
-    updateByUserId: DataTypes.INTEGER,
+    deleteByUserId: DataTypes.INTEGER,
   },
     {
       sequelize,
+      paranoid: true,
       modelName: 'Car',
     });
   return Car;
