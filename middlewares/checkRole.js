@@ -1,16 +1,16 @@
 const ApiError = require("../utils/apiError");
 
-const checkRole = (role, role2) => {
+const checkRole = (roles) => {
     return async (req, res, next) => {
-        try {
-            if (req.user.role == role || req.user.role == role2) {
-                next();
-            } else {
-                next(new ApiError(`Kamu tidak memiliki akses`, 401));
-            }
-        } catch (err) {
-            next(new ApiError(err.message, 500));
+        if (!roles.includes(req.user.role)) {
+            return next(
+                new ApiError(
+                    `kamu bukan ${roles.toString()} jadi tidak bisa akses`,
+                    401
+                )
+            );
         }
+        next();
     };
 };
 

@@ -22,11 +22,13 @@ app.use(morgan("dev"));
 app.use(router);
 
 app.all("*", (req, res, next) => {
-  next(new ApiError(`Routes does not exist`, 404));
+    next(
+        new ApiError(`Routes does not exist`, 404)
+    );
 });
 
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server jalan di port : ${PORT}`);
+    console.log(`Server jalan di port : ${PORT}`);
 });
